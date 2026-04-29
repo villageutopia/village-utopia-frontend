@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-cream font-body text-ink antialiased; }
+  h1, h2, h3, h4, h5 { @apply font-display; }
+}
+
+@layer components {
+  /* ─── Buttons ─── */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-forest-mid text-cream font-body font-medium
+           tracking-widest uppercase text-xs px-7 py-3.5
+           border border-forest-mid
+           transition-all duration-300
+           hover:bg-transparent hover:text-forest-dark;
+  }
+  .btn-outline {
+    @apply inline-flex items-center gap-2 bg-transparent text-cream font-body font-medium
+           tracking-widest uppercase text-xs px-7 py-3.5
+           border border-cream/60
+           transition-all duration-300
+           hover:bg-cream hover:text-forest-dark;
+  }
+  .btn-gold {
+    @apply inline-flex items-center gap-2 bg-gold text-forest-dark font-body font-medium
+           tracking-widest uppercase text-xs px-7 py-3.5
+           border border-gold
+           transition-all duration-300
+           hover:bg-transparent hover:text-gold;
+  }
+
+  /* ─── Section headings ─── */
+  .section-label {
+    @apply text-gold tracking-[0.25em] uppercase text-xs font-body font-medium block mb-3;
+  }
+  .section-title {
+    @apply font-display text-4xl md:text-5xl font-light text-forest-dark leading-tight;
+  }
+
+  /* ─── Cards — 'group' is applied directly in JSX ─── */
+  .room-card {
+    @apply relative overflow-hidden bg-white cursor-pointer;
+  }
+
+  /* ─── Form inputs ─── */
+  .input-field {
+    @apply w-full border-b border-forest-mid/30 bg-transparent py-2.5 px-0
+           text-ink font-body text-sm placeholder-ink/40
+           focus:outline-none focus:border-gold
+           transition-colors duration-200;
+  }
+
+  /* ─── Divider ─── */
+  .gold-divider {
+    @apply w-12 h-[1px] bg-gold block my-5;
+  }
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #FBF5E6; }
+::-webkit-scrollbar-thumb { background: #4A7A52; border-radius: 9999px; }
+
+/* ─── react-datepicker custom ─── */
+.react-datepicker-wrapper { width: 100%; }
+.react-datepicker {
+  font-family: 'Jost', sans-serif;
+  border: 1px solid #C9A96E;
+  border-radius: 0;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+}
+.react-datepicker__header { background: #2D4A32; border: none; padding: 12px 0; }
+.react-datepicker__current-month,
+.react-datepicker__day-name { color: #FBF5E6; }
+.react-datepicker__day--selected,
+.react-datepicker__day--in-range { background: #C9A96E !important; color: #1C1917; border-radius: 0 !important; }
+.react-datepicker__day--keyboard-selected { background: #4A7A52; color: #FBF5E6; border-radius: 0; }
+.react-datepicker__day:hover { background: #4A7A52 !important; color: #FBF5E6; border-radius: 0 !important; }
+.react-datepicker__navigation-icon::before { border-color: #C9A96E; }
