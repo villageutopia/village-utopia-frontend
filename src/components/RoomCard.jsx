@@ -111,7 +111,7 @@ export default function RoomCard({ room, showBadge = true }) {
         {/* Actions */}
         <div className="flex gap-3">
           <Link
-            to={`/rooms/${slug}`}
+            to={`/rooms/${slug || id}`}
             className="flex-1 text-center font-body text-xs tracking-[0.15em] uppercase py-2.5
                        border border-forest-mid text-forest-mid
                        hover:bg-forest-mid hover:text-cream transition-all duration-300"

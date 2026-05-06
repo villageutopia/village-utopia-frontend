@@ -4,22 +4,34 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 const API = import.meta.env.VITE_API_URL || 'http://localhost:3001'
 
 export default function RoomDetail() {
-  const { slug }   = useParams()
+  const { slug }   = useParams()   // could be slug or id
   const navigate   = useNavigate()
-  const [room,     setRoom]     = useState(null)
-  const [loading,  setLoading]  = useState(true)
-  const [imgIdx,   setImgIdx]   = useState(0)
-  const [notFound, setNotFound] = useState(false)
+  const [room,     setRoom]    = useState(null)
+  const [loading,  setLoading] = useState(true)
+  const [imgIdx,   setImgIdx]  = useState(0)
 
   useEffect(() => {
-    fetch(`${API}/api/rooms/${slug}`)
-      .then(r => r.json())
-      .then(data => {
-        if (data?.room) setRoom(data.room)
-        else setNotFound(true)
-      })
-      .catch(() => setNotFound(true))
-      .finally(() => setLoading(false))
+    async function load() {
+      try {
+        // Try by slug first, then by fetching all and finding by id
+        let res  = await fetch(`${API}/api/rooms/${slug}`)
+        let data = await res.json()
+
+        if (data?.room) {
+          setRoom(data.room)
+        } else {
+          // fallback: fetch all rooms and find by id
+          const all  = await fetch(`${API}/api/rooms`).then(r => r.json())
+          const found = all?.rooms?.find(r => r.id === slug || r.slug === slug)
+          if (found) setRoom(found)
+        }
+      } catch (e) {
+        console.error(e)
+      } finally {
+        setLoading(false)
+      }
+    }
+    load()
   }, [slug])
 
   if (loading) return (
@@ -28,7 +40,7 @@ export default function RoomDetail() {
     </div>
   )
 
-  if (notFound || !room) return (
+  if (!room) return (
     <div className="min-h-screen pt-20 flex flex-col items-center justify-center gap-4">
       <p className="font-display text-3xl text-ink/30 font-light">Room not found</p>
       <Link to="/rooms" className="btn-primary">← Back to Rooms</Link>
@@ -43,9 +55,9 @@ export default function RoomDetail() {
       {/* Header */}
       <section className="bg-forest-dark py-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <button onClick={() => navigate(-1)}
+          <button onClick={() => navigate('/rooms')}
             className="font-body text-xs text-cream/50 hover:text-gold transition-colors mb-4 flex items-center gap-2">
-            ← Back
+            ← Back to Rooms
           </button>
           <div className="flex flex-wrap items-center gap-3">
             <h1 className="font-display text-4xl md:text-5xl text-cream font-light">{room.name}</h1>
@@ -64,19 +76,15 @@ export default function RoomDetail() {
 
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-12 grid lg:grid-cols-3 gap-10">
 
-        {/* ── Left — Images + Details ── */}
+        {/* Images + Details */}
         <div className="lg:col-span-2">
-
-          {/* Main image */}
           {images.length > 0 && (
-            <div className="mb-4">
+            <div className="mb-8">
               <div className="relative overflow-hidden h-80 md:h-[420px]">
                 <img src={images[imgIdx]} alt={room.name}
                   className="w-full h-full object-cover"
                   onError={e => e.target.src = `https://placehold.co/800x420/2D4A32/C9A96E?text=${encodeURIComponent(room.name)}`} />
               </div>
-
-              {/* Thumbnails */}
               {images.length > 1 && (
                 <div className="flex gap-2 mt-3 overflow-x-auto pb-1">
                   {images.map((img, i) => (
@@ -93,11 +101,13 @@ export default function RoomDetail() {
           )}
 
           {/* Description */}
-          <div className="mb-8">
-            <h2 className="font-display text-2xl text-forest-dark font-light mb-3">About this stay</h2>
-            <span className="gold-divider" />
-            <p className="font-body text-ink/70 leading-relaxed mt-3">{room.description}</p>
-          </div>
+          {room.description && (
+            <div className="mb-8">
+              <h2 className="font-display text-2xl text-forest-dark font-light mb-3">About this stay</h2>
+              <span className="gold-divider" />
+              <p className="font-body text-ink/70 leading-relaxed mt-3">{room.description}</p>
+            </div>
+          )}
 
           {/* Highlights */}
           {room.highlights?.length > 0 && (
@@ -106,7 +116,7 @@ export default function RoomDetail() {
               <div className="grid grid-cols-2 gap-2">
                 {room.highlights.map(h => (
                   <div key={h} className="flex items-center gap-2 font-body text-sm text-ink/70">
-                    <span className="text-gold text-base">›</span>{h}
+                    <span className="text-gold">›</span>{h}
                   </div>
                 ))}
               </div>
@@ -119,16 +129,14 @@ export default function RoomDetail() {
               <h3 className="font-body text-xs tracking-[0.2em] uppercase text-forest-mid font-semibold mb-4">Amenities</h3>
               <div className="flex flex-wrap gap-2">
                 {room.amenities.map(a => (
-                  <span key={a} className="font-body text-xs border border-forest-mid/30 text-forest-mid px-3 py-1">
-                    {a}
-                  </span>
+                  <span key={a} className="font-body text-xs border border-forest-mid/30 text-forest-mid px-3 py-1">{a}</span>
                 ))}
               </div>
             </div>
           )}
         </div>
 
-        {/* ── Right — Book widget ── */}
+        {/* Book sidebar */}
         <div className="lg:col-span-1">
           <div className="sticky top-28 bg-white border border-cream-dark p-6">
             <div className="flex justify-between items-baseline mb-1">
@@ -142,15 +150,12 @@ export default function RoomDetail() {
               {room.size && <span>📐 {room.size}</span>}
             </div>
 
-            <Link
-              to={`/booking?room=${room.id}`}
+            <Link to={`/booking?room=${room.id}`}
               className="block w-full text-center bg-forest-mid text-cream font-body text-xs
                          tracking-[0.2em] uppercase py-3.5 hover:bg-forest-dark transition-colors mb-3">
               Book Now
             </Link>
-
-            <Link
-              to="/contact"
+            <Link to="/contact"
               className="block w-full text-center border border-forest-mid text-forest-mid font-body text-xs
                          tracking-[0.2em] uppercase py-3.5 hover:bg-forest-mid hover:text-cream transition-colors">
               Enquire
