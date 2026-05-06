@@ -1,5 +1,5 @@
 // src/hooks/useAdmin.js
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 const API = import.meta.env.VITE_API_URL || 'http://localhost:3001'
 
@@ -36,17 +36,24 @@ export function useAdmin() {
     setToken(null)
   }
 
+  // ── apiCall with full error handling ──────────────────────
   async function apiCall(path, options = {}) {
-    const res = await fetch(`${API}${path}`, {
-      ...options,
-      headers: {
-        'Content-Type':  'application/json',
-        'Authorization': `Bearer ${token}`,
-        ...options.headers,
-      },
-    })
-    if (res.status === 401) { logout(); return null }
-    return res.json()
+    try {
+      const res = await fetch(`${API}${path}`, {
+        ...options,
+        headers: {
+          'Content-Type':  'application/json',
+          'Authorization': `Bearer ${token}`,
+          ...options.headers,
+        },
+      })
+      if (res.status === 401) { logout(); return null }
+      const data = await res.json()
+      return data
+    } catch (err) {
+      console.error('[API Error]', path, err.message)
+      return { error: `Network error: ${err.message}` }
+    }
   }
 
   return { token, isLoggedIn, loading, error, login, logout, apiCall }
