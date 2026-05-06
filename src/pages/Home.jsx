@@ -1,8 +1,8 @@
-import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import Hero from '../components/Hero'
 import RoomCard from '../components/RoomCard'
-import { ROOMS, COTTAGES, AMENITIES, TESTIMONIALS } from '../data/rooms'
+import { AMENITIES, TESTIMONIALS } from '../data/rooms'
+import { useState, useEffect, useRef } from 'react'
 
 // ─── simple intersection-observer hook ───
 function useFadeIn(threshold = 0.15) {
@@ -20,6 +20,8 @@ function useFadeIn(threshold = 0.15) {
   return ref
 }
 
+const API = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+
 export default function Home() {
   const roomsRef      = useFadeIn()
   const cottagesRef   = useFadeIn()
@@ -27,6 +29,21 @@ export default function Home() {
   const galleryRef    = useFadeIn()
   const reviewsRef    = useFadeIn()
   const ctaRef        = useFadeIn()
+
+  const [rooms,    setRooms]    = useState([])
+  const [cottages, setCottages] = useState([])
+
+  useEffect(() => {
+    fetch(`${API}/api/rooms`)
+      .then(r => r.json())
+      .then(data => {
+        if (data?.rooms) {
+          setRooms(data.rooms.filter(r => r.type === 'ROOM'))
+          setCottages(data.rooms.filter(r => r.type === 'COTTAGE'))
+        }
+      })
+      .catch(() => {})
+  }, [])
 
   return (
     <main>
@@ -111,7 +128,7 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {ROOMS.map(room => (
+            {rooms.map(room => (
               <RoomCard key={room.id} room={room} />
             ))}
           </div>
@@ -138,7 +155,7 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {COTTAGES.map(cottage => (
+            {cottages.map(cottage => (
               <RoomCard key={cottage.id} room={cottage} />
             ))}
           </div>

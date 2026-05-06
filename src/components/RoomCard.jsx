@@ -46,7 +46,7 @@ export default function RoomCard({ room, showBadge = true }) {
 
         {/* Type tag */}
         <div className="absolute top-4 right-4 bg-forest-dark/80 text-cream/80 font-body text-[9px] tracking-[0.2em] uppercase px-2 py-1 backdrop-blur-sm">
-          {type === 'room' ? 'Room' : 'Cottage'}
+          {type === 'ROOM' || type === 'room' ? 'Room' : 'Cottage'}
         </div>
 
         {/* Quick navigation arrows */}

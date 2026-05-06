@@ -1,5 +1,4 @@
-// src/hooks/useAdmin.js
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 
 const API = import.meta.env.VITE_API_URL || 'http://localhost:3001'
 
@@ -14,9 +13,9 @@ export function useAdmin() {
     setLoading(true); setError('')
     try {
       const res  = await fetch(`${API}/api/admin/login`, {
-        method:  'POST',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, password }),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Login failed')
@@ -36,25 +35,25 @@ export function useAdmin() {
     setToken(null)
   }
 
-  // ── apiCall with full error handling ──────────────────────
-  async function apiCall(path, options = {}) {
+  // ✅ useCallback with stable deps — prevents infinite re-render loop
+  const apiCall = useCallback(async (path, options = {}) => {
+    const t = localStorage.getItem('admin_token')
     try {
       const res = await fetch(`${API}${path}`, {
         ...options,
         headers: {
           'Content-Type':  'application/json',
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${t}`,
           ...options.headers,
         },
       })
       if (res.status === 401) { logout(); return null }
-      const data = await res.json()
-      return data
+      return await res.json()
     } catch (err) {
       console.error('[API Error]', path, err.message)
       return { error: `Network error: ${err.message}` }
     }
-  }
+  }, []) // ✅ empty deps — stable function reference
 
   return { token, isLoggedIn, loading, error, login, logout, apiCall }
 }
