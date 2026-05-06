@@ -123,12 +123,12 @@ export default function Home() {
               <span className="block w-12 h-[1px] bg-gold mt-4" />
             </div>
             <Link to="/rooms?type=room" className="btn-outline self-start md:self-auto whitespace-nowrap">
-              All 9 Rooms →
+              All {rooms.length} Rooms →
             </Link>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {rooms.map(room => (
+            {rooms.slice(0, 2).map(room => (
               <RoomCard key={room.id} room={room} />
             ))}
           </div>
@@ -150,12 +150,12 @@ export default function Home() {
               <span className="gold-divider" />
             </div>
             <Link to="/rooms?type=cottage" className="btn-primary self-start md:self-auto whitespace-nowrap">
-              All 4 Cottages →
+              All {cottages.length} Cottages →
             </Link>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {cottages.map(cottage => (
+            {cottages.slice(0, 2).map(cottage => (
               <RoomCard key={cottage.id} room={cottage} />
             ))}
           </div>
