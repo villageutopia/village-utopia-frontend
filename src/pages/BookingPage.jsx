@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { ADDONS } from '../data/rooms'
+import { useAuth } from '../hooks/useAuth'
 
 // ✅ No ALL_UNITS static import — loads from API
 const API = import.meta.env.VITE_API_URL || 'http://localhost:3001'
@@ -15,6 +16,7 @@ export default function BookingPage() {
   const today    = new Date()
   const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1)
 
+  const { token } = useAuth()
   const [step,     setStep]    = useState(0)
   const [checkIn,  setCheckIn] = useState(today)
   const [checkOut, setCheckOut]= useState(tomorrow)
@@ -26,8 +28,10 @@ export default function BookingPage() {
   const [errors,   setErrors]  = useState({})
 
   // ── Load all rooms from API ────────────────────────────
-  const [allUnits, setAllUnits] = useState([])
-  const [loadingRooms, setLoadingRooms] = useState(true)
+  const [allUnits,        setAllUnits]        = useState([])
+  const [loadingRooms,    setLoadingRooms]    = useState(true)
+  const [unavailableIds,  setUnavailableIds]  = useState(new Set())
+  const [checkingAvail,   setCheckingAvail]   = useState(false)
 
   useEffect(() => {
     fetch(`${API}/api/rooms`)
@@ -38,6 +42,26 @@ export default function BookingPage() {
       .catch(() => {})
       .finally(() => setLoadingRooms(false))
   }, [])
+
+  // ── Check availability when dates change ──────────────
+  useEffect(() => {
+    if (allUnits.length === 0) return
+    const checkin  = checkIn.toISOString().split('T')[0]
+    const checkout = checkOut.toISOString().split('T')[0]
+    setCheckingAvail(true)
+
+    Promise.all(
+      allUnits.map(unit =>
+        fetch(`${API}/api/rooms/${unit.id}/availability?checkin=${checkin}&checkout=${checkout}`)
+          .then(r => r.json())
+          .then(data => ({ id: unit.id, available: data.available !== false }))
+          .catch(() => ({ id: unit.id, available: true }))
+      )
+    ).then(results => {
+      const unavailable = new Set(results.filter(r => !r.available).map(r => r.id))
+      setUnavailableIds(unavailable)
+    }).finally(() => setCheckingAvail(false))
+  }, [checkIn, checkOut, allUnits])
 
   const nights   = Math.max(1, Math.ceil((checkOut - checkIn) / 86400000))
   const room     = allUnits.find(u => u.id === roomId)
@@ -72,7 +96,10 @@ export default function BookingPage() {
       // 1. Create order on backend
       const res = await fetch(`${API}/api/bookings/create-order`, {
         method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+        },
         body: JSON.stringify({
           roomId:          roomId,
           checkin:         checkIn.toISOString().split('T')[0],
@@ -196,36 +223,62 @@ export default function BookingPage() {
               {loadingRooms ? (
                 <div className="text-center py-10 font-body text-ink/40">Loading rooms...</div>
               ) : (
-                <div className="grid sm:grid-cols-2 gap-4">
-                  {allUnits.map(u => (
-                    <div key={u.id} onClick={() => setRoomId(u.id)}
-                      className={`cursor-pointer border-2 transition-all duration-200 overflow-hidden ${
-                        roomId === u.id ? 'border-gold' : 'border-transparent hover:border-cream-dark'}`}>
-                      <div className="relative h-40 overflow-hidden">
-                        <img src={u.images?.[0]} alt={u.name} className="w-full h-full object-cover"
-                          onError={e => e.target.src = `https://placehold.co/400x200/2D4A32/C9A96E?text=${encodeURIComponent(u.name)}`} />
-                        {roomId === u.id && (
-                          <div className="absolute top-2 right-2 bg-gold text-forest-dark w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">✓</div>
-                        )}
-                        {u.badge && (
-                          <div className="absolute top-2 left-2 bg-gold/90 text-forest-dark font-body text-[9px] tracking-wide uppercase px-2 py-0.5">{u.badge}</div>
-                        )}
-                      </div>
-                      <div className="p-4 bg-white">
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <p className="font-display text-base text-forest-dark">{u.name}</p>
-                            <p className="font-body text-xs text-ink/40 mt-0.5">Up to {u.capacity} guests</p>
+                <>
+                  {checkingAvail && (
+                    <p className="font-body text-xs text-ink/40 mb-3 animate-pulse">
+                      ⏳ Checking availability for selected dates...
+                    </p>
+                  )}
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    {allUnits.map(u => {
+                      const isUnavailable = unavailableIds.has(u.id)
+                      return (
+                        <div key={u.id}
+                          onClick={() => !isUnavailable && setRoomId(u.id)}
+                          className={`border-2 transition-all duration-200 overflow-hidden ${
+                            isUnavailable
+                              ? 'opacity-50 cursor-not-allowed border-transparent'
+                              : roomId === u.id
+                                ? 'border-gold cursor-pointer'
+                                : 'border-transparent hover:border-cream-dark cursor-pointer'
+                          }`}>
+                          <div className="relative h-40 overflow-hidden">
+                            <img src={u.images?.[0]} alt={u.name} className="w-full h-full object-cover"
+                              onError={e => e.target.src = `https://placehold.co/400x200/2D4A32/C9A96E?text=${encodeURIComponent(u.name)}`} />
+                            {/* Unavailable overlay */}
+                            {isUnavailable && (
+                              <div className="absolute inset-0 bg-white/60 flex items-center justify-center">
+                                <span className="bg-red-500 text-white font-body text-xs tracking-wide uppercase px-3 py-1">
+                                  Not Available
+                                </span>
+                              </div>
+                            )}
+                            {roomId === u.id && !isUnavailable && (
+                              <div className="absolute top-2 right-2 bg-gold text-forest-dark w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">✓</div>
+                            )}
+                            {u.badge && !isUnavailable && (
+                              <div className="absolute top-2 left-2 bg-gold/90 text-forest-dark font-body text-[9px] tracking-wide uppercase px-2 py-0.5">{u.badge}</div>
+                            )}
                           </div>
-                          <div className="text-right">
-                            <p className="font-display text-lg text-forest-mid">₹{(u.price * nights).toLocaleString()}</p>
-                            <p className="font-body text-[9px] text-ink/40">{nights} night{nights>1?'s':''}</p>
+                          <div className="p-4 bg-white">
+                            <div className="flex justify-between items-start">
+                              <div>
+                                <p className="font-display text-base text-forest-dark">{u.name}</p>
+                                <p className={`font-body text-xs mt-0.5 ${isUnavailable ? 'text-red-400' : 'text-ink/40'}`}>
+                                  {isUnavailable ? '❌ Booked for these dates' : `Up to ${u.capacity} guests`}
+                                </p>
+                              </div>
+                              <div className="text-right">
+                                <p className="font-display text-lg text-forest-mid">₹{(u.price * nights).toLocaleString()}</p>
+                                <p className="font-body text-[9px] text-ink/40">{nights} night{nights>1?'s':''}</p>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                      )
+                    })}
+                  </div>
+                </>
               )}
             </div>
           )}
