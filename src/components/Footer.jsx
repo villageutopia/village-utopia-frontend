@@ -72,13 +72,13 @@ export default function Footer() {
               className="flex items-center gap-3 font-body text-sm text-cream/50 hover:text-gold transition-colors duration-200">
               <span className="text-base">📞</span>+91 98765 43210
             </a>
-            <a href="https://wa.me/919876543210" target="_blank" rel="noreferrer"
+            <a href="https://wa.me/91619084497" target="_blank" rel="noreferrer"
               className="flex items-center gap-3 font-body text-sm text-cream/50 hover:text-gold transition-colors duration-200">
               <span className="text-base">💬</span>WhatsApp Us
             </a>
-            <a href="mailto:stay@villageutopia.in"
+            <a href="mailto:Compasssolution@gmail.com"
               className="flex items-center gap-3 font-body text-sm text-cream/50 hover:text-gold transition-colors duration-200">
-              <span className="text-base">✉️</span>stay@villageutopia.in
+              <span className="text-base">✉️</span>Compasssolution@gmail.com
             </a>
           </div>
           <div className="mt-8">
