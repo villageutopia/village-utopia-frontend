@@ -105,7 +105,7 @@ export const TESTIMONIALS = [
     stay: 'Forest Cottage · 3 nights',
   },
   {
-    name: 'Rahul & Anjali', location: 'Bengaluru', rating: 5,
+    name: 'Rahul & Anjali', location: 'Bengaluru', rating: 4.5,
     text: 'Woke up to a lotus pond view every morning. The staff was warm and the property is exactly like the photos — lush, peaceful, and beautiful.',
     stay: 'Pond View Cottage · 4 nights',
   },

@@ -26,7 +26,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess, defaultTab = 'lo
   async function handleLogin(e) {
     e.preventDefault()
     setFormError('')
-    if (!loginForm.email || !loginForm.password) { setFormError('Sab fields bharein'); return }
+    if (!loginForm.email || !loginForm.password) { setFormError('All fields are required'); return }
     const res = await login(loginForm.email, loginForm.password)
     if (res.success) { onSuccess?.(); onClose() }
   }
@@ -35,10 +35,10 @@ export default function AuthModal({ isOpen, onClose, onSuccess, defaultTab = 'lo
     e.preventDefault()
     setFormError('')
     if (!regForm.name || !regForm.email || !regForm.phone || !regForm.password) {
-      setFormError('Sab fields bharein'); return
+      setFormError('All fields are required'); return
     }
-    if (regForm.password !== regForm.confirm) { setFormError('Passwords match nahi kar rahe'); return }
-    if (regForm.password.length < 6) { setFormError('Password kam se kam 6 characters ka ho'); return }
+    if (regForm.password !== regForm.confirm) { setFormError('Passwords not matching'); return }
+    if (regForm.password.length < 6) { setFormError('Password should be at least 6 characters long'); return }
     const res = await register(regForm.name, regForm.email, regForm.phone, regForm.password)
     if (res.success) { onSuccess?.(); onClose() }
   }
@@ -101,7 +101,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess, defaultTab = 'lo
                 </label>
                 <input type="email" value={loginForm.email} autoFocus
                   onChange={e => setLoginForm(f => ({ ...f, email: e.target.value }))}
-                  className="input-field" placeholder="rahul@email.com" />
+                  className="input-field" placeholder="xxxxx@email.com" />
               </div>
               <div>
                 <label className="block text-[9px] tracking-[0.2em] uppercase font-body text-forest-mid font-semibold mb-1.5">
@@ -135,7 +135,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess, defaultTab = 'lo
                 </label>
                 <input type="text" value={regForm.name} autoFocus
                   onChange={e => setRegForm(f => ({ ...f, name: e.target.value }))}
-                  className="input-field" placeholder="Rahul Sharma" />
+                  className="input-field" placeholder="Enter Your Name" />
               </div>
               <div>
                 <label className="block text-[9px] tracking-[0.2em] uppercase font-body text-forest-mid font-semibold mb-1.5">
@@ -143,7 +143,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess, defaultTab = 'lo
                 </label>
                 <input type="email" value={regForm.email}
                   onChange={e => setRegForm(f => ({ ...f, email: e.target.value }))}
-                  className="input-field" placeholder="rahul@email.com" />
+                  className="input-field" placeholder="xxxxx@email.com" />
               </div>
               <div>
                 <label className="block text-[9px] tracking-[0.2em] uppercase font-body text-forest-mid font-semibold mb-1.5">
@@ -151,7 +151,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess, defaultTab = 'lo
                 </label>
                 <input type="tel" value={regForm.phone}
                   onChange={e => setRegForm(f => ({ ...f, phone: e.target.value }))}
-                  className="input-field" placeholder="+91 98765 43210" />
+                  className="input-field" placeholder="+91 xxxxx 43210" />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>

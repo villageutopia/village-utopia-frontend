@@ -71,9 +71,9 @@ export function Contact() {
           <h2 className="font-display text-3xl text-forest-dark font-light mb-6">We'd love to hear from you</h2>
           <div className="space-y-5">
             {[
-              { icon: '📞', label: 'Phone', value: '+91 98765 43210', href: 'tel:+91 8512883620' },
-              { icon: '💬', label: 'WhatsApp', value: 'Chat with us', href: 'https://wa.me/918512883620' },
-              { icon: '✉️', label: 'Email', value: 'stay@villageutopia.in', href: 'mailto:stay@villageutopia.in' },
+              { icon: '📞', label: 'Phone', value: '+91 8468960995', href: 'tel:+91 8468960995' },
+              { icon: '💬', label: 'WhatsApp', value: 'Chat with us', href: 'https://wa.me/918468960995' },
+              { icon: '✉️', label: 'Email', value: 'villageutopia.in@gmail.com', href: 'mailto:villageutopia.in@gmail.com' },
               { icon: '📍', label: 'Address', value: 'Village Utopia Cottages, Goa — 403001', href: null },
             ].map(({ icon, label, value, href }) => (
               <div key={label} className="flex gap-4 items-start">
@@ -82,7 +82,7 @@ export function Contact() {
                   <p className="font-body text-xs tracking-[0.15em] uppercase text-ink/40">{label}</p>
                   {href ? (
                     <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noreferrer"
-                       className="font-body text-sm text-forest-mid hover:text-gold transition-colors mt-0.5 block">
+                      className="font-body text-sm text-forest-mid hover:text-gold transition-colors mt-0.5 block">
                       {value}
                     </a>
                   ) : (

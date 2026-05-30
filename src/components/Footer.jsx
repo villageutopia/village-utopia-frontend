@@ -68,17 +68,17 @@ export default function Footer() {
         <div>
           <div className="section-label mb-5">Get in Touch</div>
           <div className="flex flex-col gap-4">
-            <a href="tel:+919876543210"
+            <a href="tel:+918468960995"
               className="flex items-center gap-3 font-body text-sm text-cream/50 hover:text-gold transition-colors duration-200">
-              <span className="text-base">📞</span>+91 98765 43210
+              <span className="text-base">📞</span>+91 8468960995
             </a>
-            <a href="https://wa.me/91619084497" target="_blank" rel="noreferrer"
+            <a href="https://wa.me/+918468960995" target="_blank" rel="noreferrer"
               className="flex items-center gap-3 font-body text-sm text-cream/50 hover:text-gold transition-colors duration-200">
               <span className="text-base">💬</span>WhatsApp Us
             </a>
-            <a href="mailto:Compasssolution@gmail.com"
+            <a href="mailto:villageutopia.in@gmail.com"
               className="flex items-center gap-3 font-body text-sm text-cream/50 hover:text-gold transition-colors duration-200">
-              <span className="text-base">✉️</span>Compasssolution@gmail.com
+              <span className="text-base">✉️</span>villageutopia.in@gmail.com
             </a>
           </div>
           <div className="mt-8">

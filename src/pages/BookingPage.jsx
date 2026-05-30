@@ -140,7 +140,7 @@ export default function BookingPage() {
             alert(`✅ Booking Confirmed!\n\nRef: ${vData.bookingRef}\n\nThank you for booking with Village Utopia Cottages!`)
             navigate('/')
           } else {
-            alert('Payment verification failed. Contact us at stay@villageutopia.in')
+            alert('Payment verification failed. Contact us at villageutopia.in@gmail.com with your payment details for assistance.')
           }
         },
         prefill: {
@@ -318,9 +318,9 @@ export default function BookingPage() {
               <h2 className="font-display text-2xl text-forest-dark font-light mb-6">Your details</h2>
               <div className="grid sm:grid-cols-2 gap-6 bg-white p-6 border border-cream-dark">
                 {[
-                  { name: 'name',  label: 'Full Name',     type: 'text',  placeholder: 'Rahul Sharma' },
-                  { name: 'email', label: 'Email Address', type: 'email', placeholder: 'rahul@email.com' },
-                  { name: 'phone', label: 'Phone Number',  type: 'tel',   placeholder: '+91 98765 43210' },
+                  { name: 'name',  label: 'Full Name',     type: 'text',  placeholder: 'Enter Your Name' },
+                  { name: 'email', label: 'Email Address', type: 'email', placeholder: 'xxxxx@email.com' },
+                  { name: 'phone', label: 'Phone Number',  type: 'tel',   placeholder: '+91 xxxxx 43210' },
                 ].map(({ name, label, type, placeholder }) => (
                   <div key={name} className={name === 'name' ? 'sm:col-span-2' : ''}>
                     <label className="block text-[10px] tracking-[0.2em] uppercase font-body text-ink/50 mb-2">{label}</label>

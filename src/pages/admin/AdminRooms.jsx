@@ -30,7 +30,7 @@ export default function AdminRooms() {
       if (data?.rooms) {
         setRooms(data.rooms)
       } else {
-        setLoadError(data?.error || 'Rooms load nahi huye. VITE_API_URL check karo.')
+        setLoadError(data?.error || 'Rooms load failed')
         setRooms([])
       }
     } catch (err) {
@@ -179,7 +179,7 @@ export default function AdminRooms() {
         </div>
       ) : rooms.length === 0 && !loadError ? (
         <div className="text-center py-20 bg-white border border-cream-dark">
-          <p className="font-body text-ink/40">Koi room nahi mila.</p>
+          <p className="font-body text-ink/40">No rooms found.</p>
         </div>
       ) : (
         <div className="grid gap-3">
@@ -365,7 +365,7 @@ export default function AdminRooms() {
 
                 <textarea value={form.images} onChange={e => f('images', e.target.value)}
                   rows={2} className="input-field resize-none font-mono text-xs mt-2"
-                  placeholder="Ya manually URL paste karo..." />
+                  placeholder="do manually paste URLs..." />
               </div>
 
               {/* Message */}
