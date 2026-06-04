@@ -4,24 +4,24 @@ import { useAuth } from '../hooks/useAuth'
 import AuthModal from './AuthModal'
 
 const NAV_LINKS = [
-  { to: '/',         label: 'Home' },
-  { to: '/about',    label: 'About' },
-  { to: '/rooms',    label: 'Rooms & Cottages' },
-  { to: '/gallery',  label: 'Gallery' },
-  { to: '/contact',  label: 'Contact' },
+  { to: '/', label: 'Home' },
+  { to: '/about', label: 'About' },
+  { to: '/rooms', label: 'Rooms & Cottages' },
+  { to: '/gallery', label: 'Gallery' },
+  { to: '/contact', label: 'Contact' },
 ]
 
 export default function Navbar() {
-  const { isLoggedIn, user, logout }  = useAuth()
-  const [scrolled,   setScrolled]     = useState(false)
-  const [menuOpen,   setMenuOpen]     = useState(false)
-  const [authModal,  setAuthModal]    = useState(false)
-  const [authTab,    setAuthTab]      = useState('login')
-  const [dropdown,   setDropdown]     = useState(false)
-  const dropRef                       = useRef(null)
-  const { pathname }                  = useLocation()
-  const navigate                      = useNavigate()
-  const isHome                        = pathname === '/'
+  const { isLoggedIn, user, logout } = useAuth()
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [authModal, setAuthModal] = useState(false)
+  const [authTab, setAuthTab] = useState('login')
+  const [dropdown, setDropdown] = useState(false)
+  const dropRef = useRef(null)
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
+  const isHome = pathname === '/'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
@@ -40,7 +40,7 @@ export default function Navbar() {
 
   const transparent = isHome && !scrolled
 
-  function openLogin()    { setAuthTab('login');    setAuthModal(true) }
+  function openLogin() { setAuthTab('login'); setAuthModal(true) }
   function openRegister() { setAuthTab('register'); setAuthModal(true) }
 
   function handleLogout() {
@@ -51,19 +51,16 @@ export default function Navbar() {
 
   return (
     <>
-      <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-        transparent ? 'bg-transparent' : 'bg-cream/95 backdrop-blur-sm shadow-sm'
-      }`}>
+      <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${transparent ? 'bg-transparent' : 'bg-cream/95 backdrop-blur-sm shadow-sm'
+        }`}>
         <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between h-20">
 
           {/* Logo */}
           <Link to="/" className="flex flex-col leading-none">
-            <span className={`font-display text-2xl font-light tracking-wide transition-colors duration-300 ${
-              transparent ? 'text-cream' : 'text-forest-dark'}`}>
+            <span className={`font-display text-2xl font-light tracking-wide transition-colors duration-300 ${transparent ? 'text-cream' : 'text-forest-dark'}`}>
               Village Utopia
             </span>
-            <span className={`text-[10px] font-body tracking-[0.3em] uppercase transition-colors duration-300 ${
-              transparent ? 'text-gold' : 'text-gold-dark'}`}>
+            <span className={`text-[10px] font-body tracking-[0.3em] uppercase transition-colors duration-300 ${transparent ? 'text-gold' : 'text-gold-dark'}`}>
               Cottages · Goa
             </span>
           </Link>
@@ -76,8 +73,8 @@ export default function Navbar() {
                   `font-body text-xs tracking-[0.15em] uppercase transition-colors duration-200 pb-0.5
                    ${isActive ? 'border-b border-gold text-gold' : ''}
                    ${transparent
-                     ? isActive ? '' : 'text-cream/80 hover:text-cream'
-                     : isActive ? '' : 'text-ink/70 hover:text-ink'}`}>
+                    ? isActive ? '' : 'text-cream/80 hover:text-cream'
+                    : isActive ? '' : 'text-ink/70 hover:text-ink'}`}>
                 {label}
               </NavLink>
             ))}
@@ -89,10 +86,8 @@ export default function Navbar() {
               /* User dropdown */
               <div className="relative" ref={dropRef}>
                 <button onClick={() => setDropdown(v => !v)}
-                  className={`flex items-center gap-2 font-body text-xs tracking-wide transition-colors ${
-                    transparent ? 'text-cream/80 hover:text-cream' : 'text-ink/70 hover:text-ink'}`}>
-                  <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium ${
-                    transparent ? 'bg-cream/20 text-cream' : 'bg-forest-mid text-cream'}`}>
+                  className={`flex items-center gap-2 font-body text-xs tracking-wide transition-colors ${transparent ? 'text-cream/80 hover:text-cream' : 'text-ink/70 hover:text-ink'}`}>
+                  <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium ${transparent ? 'bg-cream/20 text-cream' : 'bg-forest-mid text-cream'}`}>
                     {user?.name?.[0]?.toUpperCase() || 'U'}
                   </div>
                   <span className="hidden xl:block">{user?.name?.split(' ')[0]}</span>
@@ -121,16 +116,14 @@ export default function Navbar() {
             ) : (
               /* Login/Register */
               <button onClick={openLogin}
-                className={`font-body text-xs tracking-[0.15em] uppercase transition-colors ${
-                  transparent ? 'text-cream/70 hover:text-cream' : 'text-ink/60 hover:text-ink'}`}>
+                className={`font-body text-xs tracking-[0.15em] uppercase transition-colors ${transparent ? 'text-cream/70 hover:text-cream' : 'text-ink/60 hover:text-ink'}`}>
                 Sign In
               </button>
             )}
 
             {/* Book Now */}
             <Link to="/booking"
-              className={`font-body text-xs tracking-[0.2em] uppercase px-6 py-2.5 border transition-all duration-300 ${
-                transparent
+              className={`font-body text-xs tracking-[0.2em] uppercase px-6 py-2.5 border transition-all duration-300 ${transparent
                   ? 'border-cream/60 text-cream hover:bg-cream hover:text-forest-dark'
                   : 'border-forest-mid text-forest-mid hover:bg-forest-mid hover:text-cream'}`}>
               Book Now
@@ -139,8 +132,7 @@ export default function Navbar() {
 
           {/* Mobile hamburger */}
           <button
-            className={`lg:hidden flex flex-col gap-1.5 p-1 transition-colors ${
-              transparent ? 'text-cream' : 'text-forest-dark'}`}
+            className={`lg:hidden flex flex-col gap-1.5 p-1 transition-colors ${transparent ? 'text-cream' : 'text-forest-dark'}`}
             onClick={() => setMenuOpen(v => !v)}>
             <span className={`block w-6 h-[1.5px] bg-current transition-transform duration-300 ${menuOpen ? 'translate-y-2 rotate-45' : ''}`} />
             <span className={`block w-6 h-[1.5px] bg-current transition-opacity duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
@@ -173,7 +165,8 @@ export default function Navbar() {
         ) : (
           <div className="flex gap-4 mt-2">
             <button onClick={() => { openLogin(); setMenuOpen(false) }}
-              className="font-body text-sm text-cream/60 hover:text-gold transition-colors underline">
+              // className="font-body text-sm text-cream/60 btn-gold text-xs hover:text-gold transition-colors underline">
+              className="btn-gold text-xs">
               Sign In
             </button>
             <button onClick={() => { openRegister(); setMenuOpen(false) }}
@@ -193,7 +186,7 @@ export default function Navbar() {
         isOpen={authModal}
         onClose={() => setAuthModal(false)}
         defaultTab={authTab}
-        onSuccess={() => {}}
+        onSuccess={() => { }}
       />
     </>
   )
