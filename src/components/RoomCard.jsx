@@ -73,8 +73,13 @@ export default function RoomCard({ room, showBadge = true }) {
         <div className="flex items-start justify-between mb-2">
           <h3 className="font-display text-xl font-light text-forest-dark leading-tight">{name}</h3>
           <div className="text-right shrink-0 ml-4">
-            <span className="font-display text-2xl text-forest-mid">
-              <span className="font-sans">₹</span>{price.toLocaleString()}
+            {/* <span className="font-display text-2xl text-forest-mid">₹{price.toLocaleString()}</span> */}
+            <span className="text-2xl text-forest-mid">
+              {new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'INR',
+                maximumFractionDigits: 0,
+              }).format(price)}
             </span>
             <span className="block font-body text-[10px] text-ink/40 tracking-wide">/ night</span>
           </div>
