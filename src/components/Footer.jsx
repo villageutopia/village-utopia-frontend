@@ -76,9 +76,18 @@ export default function Footer() {
               className="flex items-center gap-3 font-body text-sm text-cream/50 hover:text-gold transition-colors duration-200">
               <span className="text-base">💬</span>WhatsApp Us
             </a>
-            <a href="mailto:villageutopia.in@gmail.com"
+            {/* <a href="mailto:villageutopia.in@gmail.com"
               className="flex items-center gap-3 font-body text-sm text-cream/50 hover:text-gold transition-colors duration-200">
               <span className="text-base">✉️</span>villageutopia.in@gmail.com
+            </a>  */}
+            <a
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=villageutopia.in@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 font-body text-sm text-cream/50 hover:text-gold transition-colors duration-200"
+            >
+              <span className="text-base">✉️</span>
+              villageutopia.in@gmail.com
             </a>
           </div>
           <div className="mt-8">

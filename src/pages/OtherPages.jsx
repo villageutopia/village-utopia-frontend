@@ -73,7 +73,9 @@ export function Contact() {
             {[
               { icon: '📞', label: 'Phone', value: '+91 8468960995', href: 'tel:+91 8468960995' },
               { icon: '💬', label: 'WhatsApp', value: 'Chat with us', href: 'https://wa.me/918468960995' },
-              { icon: '✉️', label: 'Email', value: 'villageutopia.in@gmail.com', href: 'mailto:villageutopia.in@gmail.com' },
+              {
+                icon: '✉️', label: 'Email', value: 'villageutopia.in@gmail.com', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=villageutopia.in@gmail.com'
+              },
               { icon: '📍', label: 'Address', value: 'Village Utopia Cottages, Goa — 403001', href: null },
             ].map(({ icon, label, value, href }) => (
               <div key={label} className="flex gap-4 items-start">
