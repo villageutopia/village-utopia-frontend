@@ -13,13 +13,20 @@ const GALLERY_ITEMS = [
   { src: '/images/cottage-1d.jpg',  alt: 'Cottage porch',             cat: 'cottages' },
   { src: '/images/garden.jpg',   alt: 'Garden corridor',           cat: 'property' },
   { src: '/images/hero.jpg',   alt: 'Lotus pond & gazebo',       cat: 'property' },
+  { src: '/images/front.jpg', alt: 'Village Utopia Main Building', cat: 'property' },
+  { src: '/images/pool-1.jpg', alt: 'Swimming Pool View', cat: 'property' },
+  { src: '/images/pool-2.jpg', alt: 'Poolside Seating', cat: 'property' },
+  { src: '/images/pool-3.jpg', alt: 'Pool Area', cat: 'property' },
+  { src: '/images/bathroom-2.jpg', alt: 'Modern Bathroom', cat: 'property' },
+  { src: '/images/corridor-1.jpg', alt: 'Garden Corridor', cat: 'property' },
+  { src: '/images/pool-4.jpg', alt: 'Property Exterior', cat: 'property' },
 ]
 
 const CATS = [
   { val: 'all',      label: 'All' },
   { val: 'rooms',    label: 'Classic Rooms' },
   { val: 'cottages', label: 'Forest Cottages' },
-  { val: 'property', label: 'Property & Grounds' },
+  { val: 'property', label: 'Property, Grounds & Amenities' },
 ]
 
 export default function GalleryPage() {
@@ -62,7 +69,7 @@ export default function GalleryPage() {
 
       {/* Masonry grid */}
       <section className="max-w-7xl mx-auto px-6 lg:px-12 py-12">
-        <div className="columns-2 md:columns-3 lg:columns-4 gap-3 space-y-3">
+        <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-3 space-y-3">
           {items.map((item, idx) => (
             <div
               key={item.src + idx}

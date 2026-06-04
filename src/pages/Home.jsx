@@ -23,14 +23,14 @@ function useFadeIn(threshold = 0.15) {
 const API = import.meta.env.VITE_API_URL || 'http://localhost:3001'
 
 export default function Home() {
-  const roomsRef      = useFadeIn()
-  const cottagesRef   = useFadeIn()
-  const amenitiesRef  = useFadeIn()
-  const galleryRef    = useFadeIn()
-  const reviewsRef    = useFadeIn()
-  const ctaRef        = useFadeIn()
+  const roomsRef = useFadeIn()
+  const cottagesRef = useFadeIn()
+  const amenitiesRef = useFadeIn()
+  const galleryRef = useFadeIn()
+  const reviewsRef = useFadeIn()
+  const ctaRef = useFadeIn()
 
-  const [rooms,    setRooms]    = useState([])
+  const [rooms, setRooms] = useState([])
   const [cottages, setCottages] = useState([])
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function Home() {
           setCottages(data.rooms.filter(r => r.type === 'COTTAGE'))
         }
       })
-      .catch(() => {})
+      .catch(() => { })
   }, [])
 
   return (
@@ -72,7 +72,7 @@ export default function Home() {
             </p>
             <div className="mt-8 flex gap-4">
               <Link to="/about" className="btn-primary">Our Story</Link>
-              <Link to="/rooms"  className="btn-outline bg-transparent border-forest-mid text-forest-mid hover:bg-forest-mid hover:text-cream">
+              <Link to="/rooms" className="btn-outline bg-transparent border-forest-mid text-forest-mid hover:bg-forest-mid hover:text-cream">
                 Explore Stays
               </Link>
             </div>
@@ -196,14 +196,25 @@ export default function Home() {
           </div>
 
           {/* Masonry-like grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+          {/* <div className="grid grid-cols-2 lg:grid-cols-3 gap-3"> */}
+          <div className="grid grid-cols-3 lg:grid-cols-4 gap-3">
             {[
-              { src: '/images/room-1a.jpg',      alt: 'Classic room interior',  tall: true },
-              { src: '/images/cottage-1a.jpg',   alt: 'Cottage bedroom',        tall: false },
-              { src: '/images/garden.jpg',      alt: 'Garden corridor',        tall: false },
-              { src: '/images/cottage-2b.jpg',  alt: 'Cottage exterior',       tall: false },
-              { src: '/images/hero.jpg',        alt: 'Lotus pond & gazebo',    tall: false },
-              { src: '/images/cottage-1c.jpg',   alt: 'Cottage bathroom',       tall: true },
+              // { src: '/images/room-1a.jpg',      alt: 'Classic room interior',  tall: true },
+              // { src: '/images/cottage-1a.jpg',   alt: 'Cottage bedroom',        tall: false },
+              // { src: '/images/garden.jpg',      alt: 'Garden corridor',        tall: false },
+              // { src: '/images/cottage-2b.jpg',  alt: 'Cottage exterior',       tall: false },
+              // { src: '/images/hero.jpg',        alt: 'Lotus pond & gazebo',    tall: false },
+              // { src: '/images/cottage-1c.jpg',   alt: 'Cottage bathroom',       tall: true },
+              { src: '/images/front.jpg', alt: 'Village Utopia Exterior', tall: true },
+              { src: '/images/cottage-1a.jpg', alt: 'Cottage Bedroom', tall: false },
+              { src: '/images/garden.jpg', alt: 'Garden Corridor', tall: false },
+              { src: '/images/cottage-2b.jpg', alt: 'Cottage Exterior', tall: false },
+              { src: '/images/pool-1.jpg', alt: 'Swimming Pool', tall: false },
+              { src: '/images/pool-2.jpg', alt: 'Pool View', tall: false },
+              { src: '/images/pool-3.jpg', alt: 'Poolside Seating', tall: false },
+              { src: '/images/pool-4.jpg', alt: 'Pool Area', tall: false },
+              { src: '/images/corridor-1.jpg', alt: 'Balcony Corridor', tall: true },
+              { src: '/images/bathroom-2.jpg', alt: 'Premium Bathroom', tall: true },
             ].map(({ src, alt, tall }) => (
               <div
                 key={src}
