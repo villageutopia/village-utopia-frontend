@@ -29,9 +29,8 @@ export default function RoomCard({ room, showBadge = true }) {
               <button
                 key={i}
                 onClick={e => { e.preventDefault(); setImgIdx(i) }}
-                className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${
-                  i === imgIdx ? 'bg-gold w-4' : 'bg-cream/60'
-                }`}
+                className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${i === imgIdx ? 'bg-gold w-4' : 'bg-cream/60'
+                  }`}
               />
             ))}
           </div>
@@ -74,12 +73,16 @@ export default function RoomCard({ room, showBadge = true }) {
           <h3 className="font-display text-xl font-light text-forest-dark leading-tight">{name}</h3>
           <div className="text-right shrink-0 ml-4">
             {/* <span className="font-display text-2xl text-forest-mid">₹{price.toLocaleString()}</span> */}
-            <span className="text-2xl text-forest-mid">
+            {/* <span className="text-2xl text-forest-mid">
               {new Intl.NumberFormat('en-IN', {
                 style: 'currency',
                 currency: 'INR',
                 maximumFractionDigits: 0,
               }).format(price)}
+            </span> */}
+            <span className="font-sans text-lg text-forest-mid">₹</span>
+            <span className="font-display text-2xl text-forest-mid">
+              {price.toLocaleString()}
             </span>
             <span className="block font-body text-[10px] text-ink/40 tracking-wide">/ night</span>
           </div>
