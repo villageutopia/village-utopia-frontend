@@ -98,12 +98,21 @@ export function Contact() {
 
         <div>
           <div className="w-full h-64 bg-cream-dark mb-6">
-            <iframe
+            {/* <iframe
               title="Village Utopia map"
               // src="https://maps.google.com/maps?q=Goa+India&z=13&output=embed"
-              src="https://maps.app.goo.gl/CDfgaWm4hBdwxhd7A"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3853.603143124976!2d74.02070499999999!3d15.014719399999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbe458f6d5ee2ab%3A0x4753c398da875bdd!2sVillage%20Utopia%20Cottages%2C%20Tropical%20Paradise%20%2CPalolem%20Beach%20%2CSouth%20Goa!5e0!3m2!1sen!2sin!4v1780988381772!5m2!1sen!2sin"
               className="w-full h-full grayscale"
               loading="lazy"
+            /> */}
+            <iframe
+              title="Village Utopia Map"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3853.603143124976!2d74.02070499999999!3d15.014719399999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbe458f6d5ee2ab%3A0x4753c398da875bdd!2sVillage%20Utopia%20Cottages%2C%20Tropical%20Paradise%20%2CPalolem%20Beach%20%2CSouth%20Goa!5e0!3m2!1sen!2sin!4v1780988381772!5m2!1sen!2sin"
+              className="w-full h-full grayscale"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
           <p className="font-body text-sm text-ink/50">
