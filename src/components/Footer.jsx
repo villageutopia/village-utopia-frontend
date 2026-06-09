@@ -36,7 +36,8 @@ export default function Footer() {
             <div className="font-body text-xs text-cream/40 tracking-wide mb-1">Address</div>
             <address className="not-italic font-body text-sm text-cream/60 leading-relaxed">
               Village Utopia Cottages<br />
-              Canacona Goa, Agonda — 403702
+              Tropia Paradise, Palolem beach,<br />
+              south Goa — 403702
             </address>
           </div>
         </div>

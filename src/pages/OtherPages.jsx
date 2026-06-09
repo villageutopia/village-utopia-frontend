@@ -76,7 +76,7 @@ export function Contact() {
               {
                 icon: '✉️', label: 'Email', value: 'villageutopia.in@gmail.com', href: 'mailto:villageutopia.in@gmail.com'
               },
-              { icon: '📍', label: 'Address', value: 'Village Utopia Cottages, Canacona Goa — 403702', href: null },
+              { icon: '📍', label: 'Address', value: (<>Village Utopia Cottages, Tropical Paradise,<br /> Palolem, South Goa — 403702 </>), href: null },
             ].map(({ icon, label, value, href }) => (
               <div key={label} className="flex gap-4 items-start">
                 <span className="text-2xl mt-0.5">{icon}</span>
