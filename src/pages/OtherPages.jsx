@@ -100,7 +100,8 @@ export function Contact() {
           <div className="w-full h-64 bg-cream-dark mb-6">
             <iframe
               title="Village Utopia map"
-              src="https://maps.google.com/maps?q=Goa+India&z=13&output=embed"
+              // src="https://maps.google.com/maps?q=Goa+India&z=13&output=embed"
+              src="https://maps.app.goo.gl/CDfgaWm4hBdwxhd7A"
               className="w-full h-full grayscale"
               loading="lazy"
             />
