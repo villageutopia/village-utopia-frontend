@@ -106,13 +106,13 @@ export default function MyBookings() {
                     </span>
                     <div className="text-right">
                       <p className="font-display text-xl text-forest-mid font-light">
-                        ₹{b.totalAmount?.toLocaleString('en-IN')}
+                        Rs. {b.totalAmount?.toLocaleString('en-IN')}
                       </p>
                       <p className="font-body text-[10px] text-ink/40">Total amount</p>
                     </div>
                     {b.paidAmount > 0 && b.paidAmount < b.totalAmount && (
                       <p className="font-body text-xs text-amber-600">
-                        ₹{(b.totalAmount - b.paidAmount).toLocaleString('en-IN')} due on arrival
+                        Rs. {(b.totalAmount - b.paidAmount).toLocaleString('en-IN')} due on arrival
                       </p>
                     )}
                   </div>

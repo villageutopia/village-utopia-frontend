@@ -48,7 +48,7 @@ export default function AdminDashboard() {
               { label: 'Active Rooms',       value: stats?.totalRooms        || 0, icon: '🛏️', color: 'bg-forest-mid' },
               { label: 'Total Bookings',     value: stats?.totalBookings     || 0, icon: '📋', color: 'bg-gold-dark' },
               { label: 'Confirmed',          value: stats?.confirmedBookings || 0, icon: '✅', color: 'bg-green-600' },
-              { label: 'Total Revenue',      value: `₹${(stats?.totalRevenue || 0).toLocaleString('en-IN')}`, icon: '💰', color: 'bg-maroon' },
+              { label: 'Total Revenue',      value: `Rs. ${(stats?.totalRevenue || 0).toLocaleString('en-IN')}`, icon: '💰', color: 'bg-maroon' },
             ].map(({ label, value, icon, color }) => (
               <div key={label} className="bg-white border border-cream-dark p-5">
                 <div className={`w-9 h-9 ${color} text-white flex items-center justify-center text-lg mb-3`}>
@@ -116,7 +116,7 @@ export default function AdminDashboard() {
                     </div>
                     <div className="flex items-center gap-3">
                       <span className="font-body text-sm font-medium text-ink">
-                        ₹{b.totalAmount?.toLocaleString('en-IN')}
+                        Rs. {b.totalAmount?.toLocaleString('en-IN')}
                       </span>
                       <span className={`font-body text-[10px] px-2 py-0.5 ${STATUS_COLOR[b.status] || 'bg-gray-100 text-gray-700'}`}>
                         {b.status}

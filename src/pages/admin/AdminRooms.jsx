@@ -211,7 +211,7 @@ export default function AdminRooms() {
                   )}
                 </div>
                 <div className="font-body text-xs text-forest-mid font-medium">
-                  ₹{room.price?.toLocaleString('en-IN')}/night
+                  Rs. {room.price?.toLocaleString('en-IN')}/night
                 </div>
                 <div className="font-body text-[10px] text-ink/40 mt-0.5">
                   👥 {room.capacity} · 📐 {room.size}
@@ -280,7 +280,7 @@ export default function AdminRooms() {
               {/* Price + Capacity + Size */}
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-[9px] tracking-[0.2em] uppercase font-body text-forest-mid font-semibold mb-1">Price/Night (₹) *</label>
+                  <label className="block text-[9px] tracking-[0.2em] uppercase font-body text-forest-mid font-semibold mb-1">Price/Night (Rs.) *</label>
                   <input type="number" value={form.price} onChange={e => f('price', e.target.value)}
                     className="input-field" placeholder="3500" />
                 </div>

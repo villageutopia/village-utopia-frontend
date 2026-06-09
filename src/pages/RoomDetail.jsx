@@ -141,7 +141,7 @@ export default function RoomDetail() {
           <div className="sticky top-28 bg-white border border-cream-dark p-6">
             <div className="flex justify-between items-baseline mb-1">
               <span className="font-display text-3xl text-forest-mid font-light">
-                ₹{room.price?.toLocaleString('en-IN')}
+                Rs. {room.price?.toLocaleString('en-IN')}
               </span>
               <span className="font-body text-xs text-ink/40">/ night</span>
             </div>

@@ -96,7 +96,7 @@ export default function AdminBookings() {
                   <div className="text-ink/40">{b.nights} nights · {b.guests} guests</div>
                 </div>
                 <div className="font-body text-sm font-medium text-ink">
-                  ₹{b.totalAmount?.toLocaleString('en-IN')}
+                  Rs. {b.totalAmount?.toLocaleString('en-IN')}
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <span className={`font-body text-[10px] px-2 py-0.5 self-start ${STATUS_STYLES[b.status]}`}>

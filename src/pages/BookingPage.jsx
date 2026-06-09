@@ -269,7 +269,7 @@ export default function BookingPage() {
                                 </p>
                               </div>
                               <div className="text-right">
-                                <p className="font-display text-lg text-forest-mid">₹{(u.price * nights).toLocaleString()}</p>
+                                <p className="font-display text-lg text-forest-mid">Rs. {(u.price * nights).toLocaleString()}</p>
                                 <p className="font-body text-[9px] text-ink/40">{nights} night{nights>1?'s':''}</p>
                               </div>
                             </div>
@@ -299,7 +299,7 @@ export default function BookingPage() {
                       <span className="text-3xl">{a.icon}</span>
                       <div className="flex-1">
                         <p className="font-body text-sm font-medium text-ink">{a.label}</p>
-                        <p className="font-body text-xs text-ink/40 mt-0.5">₹{price.toLocaleString()} per night</p>
+                        <p className="font-body text-xs text-ink/40 mt-0.5">Rs. {price.toLocaleString()} per night</p>
                       </div>
                       <div className={`w-5 h-5 border-2 rounded-full flex items-center justify-center transition-colors ${
                         selected ? 'bg-gold border-gold text-forest-dark text-xs' : 'border-ink/30'}`}>
@@ -358,14 +358,14 @@ export default function BookingPage() {
                   </div>
                 </div>
                 <div className="border-t border-cream-dark pt-4 space-y-2">
-                  <div className="flex justify-between font-body text-sm"><span className="text-ink/60">Room cost</span><span>₹{roomCost.toLocaleString()}</span></div>
+                  <div className="flex justify-between font-body text-sm"><span className="text-ink/60">Room cost</span><span>Rs. {roomCost.toLocaleString()}</span></div>
                   {addons.map(id => {
                     const a = ADDONS.find(x => x.id === id)
                     const p = a.id === 'extra-bed' ? a.price * nights : a.price * guests * nights
-                    return <div key={id} className="flex justify-between font-body text-sm"><span className="text-ink/60">{a.label}</span><span>₹{p.toLocaleString()}</span></div>
+                    return <div key={id} className="flex justify-between font-body text-sm"><span className="text-ink/60">{a.label}</span><span>Rs. {p.toLocaleString()}</span></div>
                   })}
                   <div className="flex justify-between font-display text-lg border-t border-cream-dark pt-2">
-                    <span>Total</span><span className="text-forest-mid">₹{total.toLocaleString()}</span>
+                    <span>Total</span><span className="text-forest-mid">Rs. {total.toLocaleString()}</span>
                   </div>
                 </div>
               </div>
@@ -373,8 +373,8 @@ export default function BookingPage() {
               <div className="bg-white border border-cream-dark p-6 mb-6">
                 <div className="grid sm:grid-cols-2 gap-4">
                   {[
-                    { val: 'full',    label: 'Full Payment',  desc: `Pay ₹${total.toLocaleString()} now` },
-                    { val: 'partial', label: 'Partial (30%)', desc: `Pay ₹${Math.round(total*0.3).toLocaleString()} now, rest on arrival` },
+                    { val: 'full',    label: 'Full Payment',  desc: `Pay Rs. ${total.toLocaleString()} now` },
+                    { val: 'partial', label: 'Partial (30%)', desc: `Pay Rs. ${Math.round(total*0.3).toLocaleString()} now, rest on arrival` },
                   ].map(({ val, label, desc }) => (
                     <div key={val} onClick={() => setPayType(val)}
                       className={`cursor-pointer p-4 border-2 transition-all ${payType === val ? 'border-gold bg-gold/5' : 'border-cream-dark hover:border-forest-mid/40'}`}>
@@ -387,7 +387,7 @@ export default function BookingPage() {
 
               <button onClick={handlePayment}
                 className="w-full bg-gold text-forest-dark font-body font-medium text-sm tracking-[0.15em] uppercase py-4 hover:bg-gold-dark transition-colors">
-                Pay ₹{payNow.toLocaleString()} Securely
+                Pay Rs. {payNow.toLocaleString()} Securely
               </button>
             </div>
           )}
@@ -419,10 +419,10 @@ export default function BookingPage() {
                   {checkOut.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
                 </p>
                 <div className="border-t border-cream-dark mt-4 pt-4 space-y-2">
-                  <div className="flex justify-between font-body text-xs text-ink/60"><span>Room</span><span>₹{roomCost.toLocaleString()}</span></div>
-                  {addons.length > 0 && <div className="flex justify-between font-body text-xs text-ink/60"><span>Add-ons</span><span>₹{addonCost.toLocaleString()}</span></div>}
+                  <div className="flex justify-between font-body text-xs text-ink/60"><span>Room</span><span>Rs. {roomCost.toLocaleString()}</span></div>
+                  {addons.length > 0 && <div className="flex justify-between font-body text-xs text-ink/60"><span>Add-ons</span><span>Rs. {addonCost.toLocaleString()}</span></div>}
                   <div className="flex justify-between font-display text-base border-t border-cream-dark pt-2">
-                    <span>Total</span><span className="text-forest-mid font-medium">₹{total.toLocaleString()}</span>
+                    <span>Total</span><span className="text-forest-mid font-medium">Rs. {total.toLocaleString()}</span>
                   </div>
                 </div>
               </>
