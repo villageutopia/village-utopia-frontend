@@ -50,6 +50,7 @@ export default function Footer() {
               ['/', 'Home'],
               ['/about', 'About Us'],
               ['/rooms', 'Rooms & Cottages'],
+              ['/yoga', 'Yoga'],
               ['/gallery', 'Gallery'],
               ['/contact', 'Contact'],
               ['/policies', 'Cancellation Policy'],
