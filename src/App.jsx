@@ -8,6 +8,7 @@ import BookingPage  from './pages/BookingPage'
 import { About, Contact, Policies } from './pages/OtherPages'
 import RoomDetail   from './pages/RoomDetail'
 import MyBookings   from './pages/MyBookings'
+import YogaPage     from './pages/YogaPage'
 
 // Admin
 import AdminLogin     from './pages/admin/AdminLogin'
@@ -42,6 +43,7 @@ export default function App() {
         <Route path="/policies" element={<PublicLayout><Policies /></PublicLayout>} />
         <Route path="/my-bookings" element={<PublicLayout><MyBookings /></PublicLayout>} />
         <Route path="/rooms/:slug" element={<PublicLayout><RoomDetail /></PublicLayout>} />
+        <Route path="/yoga" element={<PublicLayout><YogaPage /></PublicLayout>} />
 
         {/* ── Admin routes (no navbar/footer) ── */}
         <Route path="/admin" element={<AdminLogin />} />
